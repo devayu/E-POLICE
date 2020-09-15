@@ -34,6 +34,7 @@ dev_dependencies:
     sdk: flutter
   hexcolor: ^1.0.4
   auto_size_text: ^2.1.0
+  url_launcher: ^5.5.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -70,15 +71,23 @@ flutter:
    - family: Montserrat
      fonts:
        - asset: assets/fonts/Montserrat-Regular.ttf
+         weight: 400
        - asset: assets/fonts/Montserrat-Bold.ttf
          weight: 700
        - asset: assets/fonts/Montserrat-Medium.ttf
          weight: 500
        - asset: assets/fonts/Montserrat-SemiBold.ttf
          weight: 600
-   - family: CustomIcons
+   - family: Raleway
      fonts:
-      - asset: assets/fonts/CustomIcons.ttf
+      - asset: assets/fonts/Raleway-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Raleway-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Raleway-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Raleway-Medium.ttf
+        weight: 500
           
 
   #   - family: Trajan Pro
