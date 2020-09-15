@@ -1,0 +1,3 @@
+class Victim {
+  String id;
+}
