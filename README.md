@@ -1,4 +1,4 @@
-# E-POLICE - *A smart policing app based on FLUTTER
+# E-POLICE - *A smart policing app based on FLUTTER*
 
 
 
