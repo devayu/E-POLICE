@@ -1,6 +1,4 @@
-# E-POLICE
-
-A flutter project
+# E-POLICE - *A smart policing app based on FLUTTER
 
 
 
