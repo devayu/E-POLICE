@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class StatusScreen extends StatefulWidget {
   @override
@@ -6,26 +7,27 @@ class StatusScreen extends StatefulWidget {
 }
 
 class _StatusScreenState extends State<StatusScreen> {
-  @override
   DateTime selectedDate;
-
-  _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+  _selectDate(BuildContext context) {
+    showDatePicker(
       context: context,
-      initialDate: selectedDate, // Refer step 1
+      initialDate: DateTime.now(), // Refer step 1
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
-    );
-    if (picked != null && picked != selectedDate)
+    ).then((pickedDate) {
+      if (pickedDate = null) {
+        return;
+      }
       setState(() {
-        selectedDate = picked;
+        selectedDate = pickedDate;
       });
+    });
   }
 
+  @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
-    DateTime selectedDate = DateTime.now();
 
     //TODO Datepicker implementation
 
@@ -33,7 +35,7 @@ class _StatusScreenState extends State<StatusScreen> {
       home: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).backgroundColor,
           title: Text(
             'CHECK STATUS',
             style: TextStyle(
@@ -54,11 +56,22 @@ class _StatusScreenState extends State<StatusScreen> {
               color: Colors.grey[300],
               elevation: 5,
               child: TextField(
+                onEditingComplete: () {
+                  print('done');
+                },
                 style: TextStyle(fontFamily: 'Montserrat'),
                 keyboardType: TextInputType.number,
+                cursorColor: Theme.of(context).primaryColor,
+                textInputAction: TextInputAction.next,
+                onSubmitted: (value) {},
                 decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10),
                     hintText: 'Enter FIR Number',
-                    hintStyle: TextStyle(fontFamily: 'Montserrat')),
+                    hintStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black26)),
               ),
             ),
             Card(
@@ -67,17 +80,28 @@ class _StatusScreenState extends State<StatusScreen> {
               elevation: 5,
               child: TextField(
                 style: TextStyle(fontFamily: 'Montserrat'),
+                keyboardType: TextInputType.datetime,
+                cursorColor: Theme.of(context).primaryColor,
                 decoration: InputDecoration(
-                    hintText: 'Enter Date of FIR   (DD/MM/YYYY)',
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      onPressed: () {
-                        _selectDate(context);
-                      },
-                    ),
-                    hintStyle: TextStyle(fontFamily: 'Montserrat')),
+                    contentPadding: EdgeInsets.all(10),
+                    border: InputBorder.none,
+                    hintText: 'Enter Date of FIR  (DD/MM/YYYY)',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black26)),
               ),
             ),
+            // Container(
+            //   alignment: Alignment.centerRight,
+            //   child: IconButton(
+            //     padding: EdgeInsets.only(right: 30),
+            //     icon: Icon(Icons.calendar_today),
+            //     onPressed: () {
+            //       _selectDate(context);
+            //     },
+            //   ),
+            // ),
             RaisedButton(
               elevation: 5,
               color: Theme.of(context).primaryColor,
@@ -89,9 +113,10 @@ class _StatusScreenState extends State<StatusScreen> {
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () {},
-            )
+            ),
           ],
         ),
+        //selectedDate=null? :Card(),
       ),
     );
   }

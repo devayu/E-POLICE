@@ -64,6 +64,7 @@ class InformationScreen extends StatelessWidget {
             ),
             centerTitle: true,
             bottom: TabBar(
+              indicatorColor: Theme.of(context).primaryColor,
               labelColor: Theme.of(context).primaryColor,
               labelStyle: TextStyle(
                   fontFamily: 'Montserrat',

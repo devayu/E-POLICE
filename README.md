@@ -1,16 +1,35 @@
-# e_police
+# E-POLICE
 
-A new Flutter project.
+A flutter project
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Abstract
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+•	We will be starting an “E-POLICE” app. Through which any victim can file a FIR or lodge any online complaint.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+•	Also, users will be able to track their previous filled FIR or complaints.
+
+•	There will be a location feature through which the nearest police station will come into action as the FIR will be under their control.
+
+•	There will be a proper verification of the person who is filing the FIR.
+
+
+
+
+## Functionalities:
+•	E-FIR
+    o OTP login 
+	    FIR form - authenticate with face id.
+	    Check previous FIR status.
+
+•	E-Complaints
+    o Complaint form
+    o Check previous complaint status.
+
+•	Nearby Police station
+    o show nearby police station according to user location.
+
+•	Important laws, rules and helpline numbers.
+
+
