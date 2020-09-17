@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Hexcolor('#194A6D'),
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          accentColor: Hexcolor('#E7F6FB'),
+          accentColor: Hexcolor('#F1FAFE'), //
           backgroundColor: Hexcolor('#F2F5F6'),
           fontFamily: 'Montserrat'),
       home: MyHomePage(),
