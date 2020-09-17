@@ -18,18 +18,18 @@ A flutter project
 
 
 ## Functionalities:
-•	E-FIR
+* E-FIR
     - OTP login 
     - FIR form - authenticate with face id.
 	- Check previous FIR status.
 
-•	E-Complaints
+* E-Complaints
     - Complaint form
     - Check previous complaint status.
 
-•	Nearby Police station
+* Nearby Police station
     - show nearby police station according to user location.
 
-•	Important laws, rules and helpline numbers.
+* Important laws, rules and helpline numbers.
 
 
