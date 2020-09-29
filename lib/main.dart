@@ -5,9 +5,10 @@ import 'package:e_police/screens/information_screen.dart';
 import 'package:e_police/screens/nearby_policestation_screen.dart';
 import 'package:e_police/screens/status_screen.dart';
 import 'package:e_police/splash.dart';
-import 'package:e_police/splashButton.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'login.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
           primaryColor: Hexcolor('#194A6D'),
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          accentColor: Hexcolor('#F1FAFE'), //
+          accentColor: Hexcolor('#F2F5F6'), //
           backgroundColor: Colors.white,
           fontFamily: 'Montserrat'),
       home: SplashScreen(),
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         '/status': (ctx) => StatusScreen(),
         '/station': (ctx) => NearbyPoliceStationScreen(),
         '/homescreen': (ctx) => MyHomePage(),
-        '/splashbutton': (ctx) => SplashButtonScreen(),
+        '/loginscreen': (ctx) => LoginScreen(),
       },
     );
   }

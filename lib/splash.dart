@@ -8,12 +8,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   startTime() async {
-    var _duration = new Duration(seconds: 5);
+    var _duration = new Duration(seconds: 4);
     return new Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/splashbutton');
+    Navigator.of(context).pushReplacementNamed('/loginscreen');
   }
 
   @override
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Container(
                   width: 250,
                   height: 250,
-                  child: Image.asset('assets/images/police.png')),
+                  child: Image.asset('assets/images/police_logo.png')),
               Text(
                 'E-POLICE',
                 style: TextStyle(

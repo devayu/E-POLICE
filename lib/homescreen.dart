@@ -47,8 +47,8 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
-      home: Scaffold(
+        debugShowCheckedModeBanner: true,
+        home: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             backgroundColor: Hexcolor('#F2F5F6'),
@@ -62,44 +62,54 @@ class MyHomePage extends StatelessWidget {
             ),
             centerTitle: true,
           ),
-          body: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 100,
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                    Colors.white.withOpacity(0.08), BlendMode.dstATop),
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/police_logo.png'),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  homeSectionBuilder(
-                      'assets/images/fir.png', 'File FIR', context, '/fir'),
-                  homeSectionBuilder('assets/images/status.png',
-                      'Check previous FIR status', context, '/status'),
-                ],
-              ),
-              SizedBox(
-                height: 35,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  homeSectionBuilder('assets/images/complaint.png',
-                      'Lodge Complaint', context, '/complaint'),
-                  homeSectionBuilder('assets/images/station.png',
-                      'Nearby Police Station', context, '/station'),
-                ],
-              ),
-              SizedBox(
-                height: 35,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  homeSectionBuilder('assets/images/rules.png',
-                      'Important Information', context, '/information')
-                ],
-              )
-            ],
-          )),
-    );
+            ),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    homeSectionBuilder(
+                        'assets/images/fir.png', 'File FIR', context, '/fir'),
+                    homeSectionBuilder('assets/images/status.png',
+                        'Check previous FIR status', context, '/status'),
+                  ],
+                ),
+                SizedBox(
+                  height: 35,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    homeSectionBuilder('assets/images/complaint.png',
+                        'Lodge Complaint', context, '/complaint'),
+                    homeSectionBuilder('assets/images/station.png',
+                        'Nearby Police Station', context, '/station'),
+                  ],
+                ),
+                SizedBox(
+                  height: 35,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    homeSectionBuilder('assets/images/rules.png',
+                        'Important Information', context, '/information')
+                  ],
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }
