@@ -1,6 +1,4 @@
-# E-POLICE
-
-A flutter project
+# E-POLICE - *A smart policing app based on FLUTTER*
 
 
 
@@ -18,18 +16,18 @@ A flutter project
 
 
 ## Functionalities:
-•	E-FIR
-    o OTP login 
-	    FIR form - authenticate with face id.
-	    Check previous FIR status.
+* E-FIR
+    - OTP login 
+    - FIR form - authenticate with face id.
+	- Check previous FIR status.
 
-•	E-Complaints
-    o Complaint form
-    o Check previous complaint status.
+* E-Complaints
+    - Complaint form
+    - Check previous complaint status.
 
-•	Nearby Police station
-    o show nearby police station according to user location.
+* Nearby Police station
+    - show nearby police station according to user location.
 
-•	Important laws, rules and helpline numbers.
+* Important laws, rules and helpline numbers.
 
 
