@@ -66,26 +66,26 @@ class MyHomePage extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.08), BlendMode.dstATop),
+                    Colors.white.withOpacity(0.5), BlendMode.dstATop),
                 fit: BoxFit.cover,
-                image: AssetImage('assets/images/police_logo.png'),
+                image: const AssetImage('assets/images/police_logo.png'),
               ),
             ),
             child: Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 100,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    homeSectionBuilder(
-                        'assets/images/fir.png', 'File FIR', context, '/fir'),
+                    homeSectionBuilder('assets/images/fir.png', 'File FIR',
+                        context, '/firform'),
                     homeSectionBuilder('assets/images/status.png',
                         'Check previous FIR status', context, '/status'),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
                 Row(
@@ -97,7 +97,7 @@ class MyHomePage extends StatelessWidget {
                         'Nearby Police Station', context, '/station'),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
                 Row(

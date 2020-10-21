@@ -1,13 +1,48 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 
-class ComplaintScreen extends StatefulWidget {
+class FirForm extends StatefulWidget {
   @override
-  _ComplaintScreenState createState() => _ComplaintScreenState();
+  _FirFormState createState() => _FirFormState();
 }
 
-class _ComplaintScreenState extends State<ComplaintScreen> {
+class _FirFormState extends State<FirForm> {
+  PickedFile image;
+  var imageFile;
+  Future getImage() async {
+    PickedFile userImage;
+    {
+      userImage = (await ImagePicker().getImage(source: ImageSource.camera));
+      setState(() {
+        image = userImage;
+        imageFile = File(userImage.path);
+      });
+    }
+  }
+
   final _formKey = GlobalKey<FormState>();
+  DateTime selectedDate;
+  DateTime currentTime = DateTime.now();
+  void presentDatePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2019),
+            lastDate: DateTime(2030))
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        selectedDate = pickedDate;
+        currentTime = DateTime.now();
+      });
+    });
+  }
 
   bool checkedValue = false;
 
@@ -54,7 +89,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
               appBar: AppBar(
                 backgroundColor: Theme.of(context).backgroundColor,
                 title: Text(
-                  'LODGE COMPLAINT',
+                  'FILE E-FIR',
                   style: TextStyle(
                       fontSize: 30,
                       color: Theme.of(context).primaryColor,
@@ -69,8 +104,16 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 10,
+                      Container(
+                        alignment: Alignment.topCenter,
+                        padding: EdgeInsets.all(20),
+                        child: const Text(
+                          "Victim's Detail",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,10 +121,83 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Container(
+                                  padding: EdgeInsets.only(left: 30),
+                                  child: titleBuilder('Age')),
                               SizedBox(
                                 height: 5,
                               ),
+                              Container(
+                                padding: EdgeInsets.only(left: 20),
+                                width: 100,
+                                height: 60,
+                                child: Card(
+                                  color: Colors.grey[300],
+                                  child: TextFormField(
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.bold),
+                                      keyboardType: TextInputType.number,
+                                      cursorColor:
+                                          Theme.of(context).primaryColor,
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(
+                                        suffixStyle:
+                                            TextStyle(color: Colors.red),
+                                        labelText: 'Age',
+                                        labelStyle: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontWeight: FontWeight.normal),
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.all(10),
+                                      )),
+                                ),
+                              ),
                             ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5)),
+                                width: 100,
+                                height: 100,
+                                //color: Colors.red,
+                                child: image == null
+                                    ? IconButton(
+                                        onPressed: () {
+                                          getImage();
+                                        },
+                                        icon: Icon(
+                                          Icons.camera_alt,
+                                          size: 40,
+                                        ),
+                                      )
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Container(
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Image.file(
+                                                imageFile,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              IconButton(
+                                                  icon: Icon(
+                                                    Icons.refresh,
+                                                    color: Colors.white70,
+                                                  ),
+                                                  onPressed: () {
+                                                    getImage();
+                                                  }),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
                           ),
                         ],
                       ),
@@ -93,7 +209,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                         children: [
                           Container(
                               padding: EdgeInsets.only(left: 30),
-                              child: titleBuilder("Complainant's Name")),
+                              child: titleBuilder('Full Name')),
                           SizedBox(
                             height: 5,
                           ),
@@ -347,13 +463,84 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                       SizedBox(
                         height: 20,
                       ),
-
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                               padding: EdgeInsets.only(left: 30),
-                              child: titleBuilder('E-mail Address')),
+                              child: titleBuilder('Date and Time of FIR')),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            height: 50,
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Card(
+                                color: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: selectedDate == null
+                                          ? Text(
+                                              'No Date Chosen',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontFamily: 'Montserrat',
+                                                  color: Colors.red),
+                                            )
+                                          : Text(
+                                              DateFormat.MMMd()
+                                                      .format(selectedDate)
+                                                      .toString() +
+                                                  ' ' +
+                                                  DateFormat.jm()
+                                                      .format(currentTime)
+                                                      .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Montserrat',
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                            ),
+                                    ),
+                                    FlatButton(
+                                      onPressed: () {
+                                        presentDatePicker();
+                                      },
+                                      child: Text(
+                                        'Choose Date',
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Montserrat'),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 30),
+                            child: Text(
+                              'Nature of Incident :',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat'),
+                            ),
+                          ),
                           SizedBox(
                             height: 5,
                           ),
@@ -366,10 +553,11 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold),
-                                  keyboardType: TextInputType.emailAddress,
+                                  keyboardType: TextInputType.multiline,
                                   cursorColor: Theme.of(context).primaryColor,
                                   textInputAction: TextInputAction.next,
                                   decoration: InputDecoration(
+                                    //labelText: 'Nature of Incident',
                                     labelStyle: TextStyle(
                                         color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.normal),
@@ -388,7 +576,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                         children: [
                           Container(
                               padding: EdgeInsets.only(left: 30),
-                              child: titleBuilder('Complaint Description')),
+                              child: titleBuilder('Incident Description')),
                           SizedBox(
                             height: 5,
                           ),
@@ -406,7 +594,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   textInputAction: TextInputAction.next,
                                   maxLines: 5,
                                   decoration: InputDecoration(
-                                    hintText: 'description...',
+                                    hintText: 'Tell us about the incident...',
                                     labelStyle: TextStyle(
                                         color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.normal),
@@ -426,18 +614,77 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                       ),
 
                       //* ===========================================================
-                      //* ANCHOR Complainee  block starts
+                      //* ANCHOR Witness's block Starts
                       //* ===========================================================
 
+                      Container(
+                        alignment: Alignment.topCenter,
+                        padding: EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          bottom: 30,
+                          top: 20,
+                        ),
+                        child: Text(
+                          "Witness's Detail",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  padding: EdgeInsets.only(left: 30),
+                                  child: titleBuilder('Age')),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 20),
+                                width: 100,
+                                height: 60,
+                                child: Card(
+                                  color: Colors.grey[300],
+                                  child: TextFormField(
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.bold),
+                                      keyboardType: TextInputType.number,
+                                      cursorColor:
+                                          Theme.of(context).primaryColor,
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(
+                                        suffixStyle:
+                                            TextStyle(color: Colors.red),
+                                        labelText: 'Age',
+                                        labelStyle: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontWeight: FontWeight.normal),
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.all(10),
+                                      )),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                               padding: EdgeInsets.only(left: 30),
-                              child: titleBuilder("Complainee's Name")),
+                              child: titleBuilder('Full Name')),
                           SizedBox(
                             height: 5,
                           ),
@@ -693,7 +940,112 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                       SizedBox(
                         height: 20,
                       ),
-
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 30),
+                            child: Text(
+                              'Relationship with victim :',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat'),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 1,
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Card(
+                              color: Colors.grey[300],
+                              child: TextFormField(
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold),
+                                  keyboardType: TextInputType.multiline,
+                                  cursorColor: Theme.of(context).primaryColor,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    //labelText: 'Nature of Incident',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.normal),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(10),
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 30),
+                            child: Text(
+                              'Suspect Description :',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat'),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 1,
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Card(
+                              color: Colors.grey[300],
+                              child: TextFormField(
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold),
+                                  keyboardType: TextInputType.multiline,
+                                  cursorColor: Theme.of(context).primaryColor,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    labelText: 'Name',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.normal),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(10),
+                                  )),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 1,
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Card(
+                              color: Colors.grey[300],
+                              child: TextFormField(
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold),
+                                  keyboardType: TextInputType.multiline,
+                                  cursorColor: Theme.of(context).primaryColor,
+                                  textInputAction: TextInputAction.next,
+                                  maxLines: 2,
+                                  decoration: InputDecoration(
+                                    labelText: 'Physical Description',
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.normal),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(10),
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
                       CheckboxListTile(
                         subtitle: Text(
                           '*fields are required',
@@ -704,7 +1056,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                               color: Colors.red),
                         ),
                         title: Text(
-                          "*I certify that the above information is true and correct.",
+                          "*I certify that the above information is true and correct. I am totally aware that any legal action can be taken against me if the above provided information found out to be incorrect.",
                           style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 10,

@@ -1,4 +1,4 @@
-name: e_police
+name: EPOLICE
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -30,7 +30,12 @@ dependencies:
   google_maps_flutter: ^0.5.32
   splashscreen: ^1.2.0
   fluttertoast: ^3.1.3
-
+  flutter_launcher_icons: ^0.8.0
+  image_picker: ^0.6.7+11
+  firebase_core: "0.5.0"
+  firebase_auth: ^0.18.1
+  toast: ^0.1.5
+  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,7 +45,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   
-
+flutter_icons:
+  image_path: "assets/images/police_logo.png"
+  android: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -63,6 +70,8 @@ flutter:
      - assets/images/police_logo.png
      - assets/images/police_bg.png
      - assets/images/police_star.png
+     - assets/images/police_logo1.png
+     - assets/images/bg.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

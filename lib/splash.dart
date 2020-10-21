@@ -30,17 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                  width: 250,
-                  height: 250,
-                  child: Image.asset('assets/images/police_logo.png')),
-              Text(
-                'E-POLICE',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor),
-              )
+                  width: 450,
+                  height: 450,
+                  child: Image.asset('assets/images/bg.png')),
             ]),
       ),
     );

@@ -5,9 +5,11 @@
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="e_police"
+        android:label="E-POLICE"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -45,6 +47,6 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBNMp5q39qzkLVdCH0cF5LTcTp3ZXAwAUU"/>
+            android:value="AIzaSyDJ3E3KpjWSETVh18aJWN-R0WLH5DaG1bE"/>
     </application>
 </manifest>
