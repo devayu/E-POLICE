@@ -1,5 +1,8 @@
+import 'package:EPOLICE/after_form_screen.dart';
 import 'package:EPOLICE/demo_Login.dart';
-import 'package:EPOLICE/fir_form.dart';
+import 'package:EPOLICE/Victim_block.dart';
+
+import 'package:EPOLICE/witness_block.dart';
 
 import './homescreen.dart';
 import './screens/complaint_screen.dart';
@@ -13,6 +16,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import './login.dart';
+
+import './screens/demoFIr.dart';
+import 'Victim_block.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,8 +54,14 @@ class _MyAppState extends State<MyApp> {
         // '/station': (ctx) => NearbyPoliceStationScreen(),
         '/homescreen': (ctx) => MyHomePage(),
         '/loginscreen': (ctx) => LoginScreen(),
-        '/firform': (ctx) => FirForm(),
+        '/firform': (ctx) => VictimBlock(),
         '/demologin': (ctx) => DemoLogin(),
+        // '/progress': (ctx) => FirProgressScreen(),
+        '/demofir': (ctx) => FirFormTab(),
+
+        '/witness': (ctx) => WitnessBlock(),
+        '/victim': (ctx) => VictimBlock(),
+        '/afterform': (ctx) => AfterForm(),
       },
     );
   }

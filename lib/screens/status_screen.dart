@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
-import 'package:intl/intl.dart';
+
+import 'package:EPOLICE/progess.dart';
 
 class StatusScreen extends StatefulWidget {
   @override
@@ -31,27 +32,29 @@ class _StatusScreenState extends State<StatusScreen> {
     });
   }
 
+  final _formKey = GlobalKey<FormState>();
   void fieldValidator(BuildContext context) {
     setState(() {
       firNum = firNumberController.text;
       firDate = selectedDate.toString();
     });
 
-    if (firNum.isEmpty && firDate.isEmpty) {
+    if (firNum.isEmpty) {
       Toast.show('Fields not filled', context,
           gravity: Toast.BOTTOM, duration: Toast.LENGTH_LONG);
-      print(firDate);
+
       print(firNum);
-      setState(() {
-        validate = false;
-      });
+
+      validate = false;
+    } else if (firDate == null) {
+      Toast.show('not filled', context, gravity: Toast.BOTTOM);
+      print(firDate);
     } else {
-      Toast.show('Working', context, gravity: Toast.CENTER);
-      print('date' + firDate);
-      print('num' + firNum);
+      Toast.show(' filled', context, gravity: Toast.BOTTOM);
     }
   }
 
+  bool progress;
   @override
   Widget build(BuildContext context) {
     //MediaQueryData queryData;
@@ -86,161 +89,106 @@ class _StatusScreenState extends State<StatusScreen> {
                 image: const AssetImage('assets/images/police_logo.png'),
               ),
             ),
-            child: Column(
-              children: <Widget>[
-                const SizedBox(
-                  height: 30,
-                ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  margin: EdgeInsets.only(top: 30, left: 30, right: 30),
-                  color: Colors.grey[300],
-                  child: TextField(
-                    controller: firNumberController,
-                    style: TextStyle(
-                        fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-                    keyboardType: TextInputType.number,
-                    cursorColor: Theme.of(context).primaryColor,
-                    textInputAction: TextInputAction.next,
-                    autofocus: false,
-                    decoration: InputDecoration(
-                      labelText: ('Enter FIR Number'),
-                      labelStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.normal),
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.all(10),
-                    ),
-                  ),
-                ),
-                // Card(
-                //   shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(10)),
-                //   margin: EdgeInsets.all(30),
-                //   color: Colors.grey[300],
-                //   child: TextField(
-                //     controller: firDateController,
-                //     style: TextStyle(
-                //         fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-                //     keyboardType: TextInputType.datetime,
-                //     cursorColor: Theme.of(context).primaryColor,
-                //     maxLength: 10,
-                //     decoration: InputDecoration(
-                //       counterText: '',
-                //       contentPadding: EdgeInsets.all(10),
-                //       border: InputBorder.none,
-                //       focusColor: Theme.of(context).primaryColor,
-                //       labelText: ('Enter Date of FIR  (DD/MM/YYYY)'),
-                //       labelStyle: TextStyle(
-                //           color: Theme.of(context).primaryColor,
-                //           fontWeight: FontWeight.normal),
-                //     ),
-                //   ),
-                // ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 60,
-                  width: 500,
-                  padding: EdgeInsets.only(left: 25, right: 25),
-                  child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      color: Colors.grey[300],
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 10,
+            child: Form(
+              key: _formKey,
+              child: progress == true
+                  ? Container(
+                      child: Column(children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                            padding: EdgeInsets.only(left: 20),
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Case ID: ' + firNumberController.text,
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1),
+                            )),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        ProgressScreen(firNumberController.text),
+                      ]),
+                    )
+                  : Column(
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+                          color: Colors.grey[300],
+                          child: TextFormField(
+                            controller: firNumberController,
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold),
+                            keyboardType: TextInputType.number,
+                            cursorColor: Theme.of(context).primaryColor,
+                            textInputAction: TextInputAction.next,
+                            autofocus: false,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return '@required';
+                              }
+                            },
+                            decoration: InputDecoration(
+                              errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.red, width: 2)),
+                              labelText: ('Enter CaseID'),
+                              labelStyle: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.normal),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.all(10),
                             ),
-                            child: selectedDate == null
-                                ? Container(
-                                    width: 340,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Choose FIR Date',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.red),
-                                        ),
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.calendar_today,
-                                            color: Colors.blue,
-                                          ),
-                                          onPressed: () {
-                                            presentDatePicker();
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                : Container(
-                                    width: 340,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          DateFormat.yMMMd()
-                                              .format(selectedDate)
-                                              .toString(),
-                                          style: TextStyle(
-                                              letterSpacing: 1,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Montserrat',
-                                              color: Theme.of(context)
-                                                  .primaryColor),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              selectedDate = null;
-                                            });
-                                          },
-                                          icon: Icon(Icons.cancel),
-                                          color: Colors.red,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                           ),
-                        ],
-                      )),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ButtonTheme(
-                  height: 40,
-                  minWidth: 150,
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    elevation: 5,
-                    color: Theme.of(context).primaryColor,
-                    child: const Text(
-                      'Check',
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ButtonTheme(
+                          height: 40,
+                          minWidth: 150,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            elevation: 5,
+                            color: Theme.of(context).primaryColor,
+                            child: const Text(
+                              'Check',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
+                              if (firNumberController.text.isEmpty) {
+                                setState(() {
+                                  progress = false;
+                                });
+                              } else
+                                setState(() {
+                                  progress = true;
+                                });
+
+                              setState(() {
+                                if (_formKey.currentState.validate()) {}
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-                      fieldValidator(context);
-                    },
-                  ),
-                )
-              ],
             ),
           ),
         ),

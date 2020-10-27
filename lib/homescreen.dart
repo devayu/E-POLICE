@@ -80,7 +80,7 @@ class MyHomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     homeSectionBuilder('assets/images/fir.png', 'File FIR',
-                        context, '/firform'),
+                        context, '/victim'),
                     homeSectionBuilder('assets/images/status.png',
                         'Check previous FIR status', context, '/status'),
                   ],
