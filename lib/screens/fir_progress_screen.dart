@@ -49,7 +49,7 @@ class _FirProgressScreenState extends State<FirProgressScreen> {
                 return Column(
                   children: [
                     LinearPercentIndicator(
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      padding: EdgeInsets.only(left: 30, right: 30),
                       animation: true,
                       width: MediaQuery.of(context).size.width,
                       lineHeight: 20.0,
@@ -67,7 +67,7 @@ class _FirProgressScreenState extends State<FirProgressScreen> {
                       // progressCheck(snapshot.data.documents[0]['progress']),
                       ,
                       linearStrokeCap: LinearStrokeCap.roundAll,
-                      progressColor: Colors.redAccent,
+                      progressColor: Colors.greenAccent,
                     )
                   ],
                 );

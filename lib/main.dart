@@ -1,6 +1,8 @@
+import 'package:EPOLICE/LoginPage.dart';
 import 'package:EPOLICE/after_form_screen.dart';
 import 'package:EPOLICE/demo_Login.dart';
 import 'package:EPOLICE/Victim_block.dart';
+import 'package:EPOLICE/nearby_police_screen.dart';
 
 import 'package:EPOLICE/witness_block.dart';
 
@@ -38,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'E-POLICE',
       theme: ThemeData(
           textTheme: TextTheme(headline1: TextStyle(fontFamily: 'Montserrat')),
           primaryColor: Hexcolor('#194A6D'),
@@ -51,14 +53,12 @@ class _MyAppState extends State<MyApp> {
         '/information': (ctx) => InformationScreen(),
         '/complaint': (ctx) => ComplaintScreen(),
         '/status': (ctx) => StatusScreen(),
-        // '/station': (ctx) => NearbyPoliceStationScreen(),
+        '/station': (ctx) => NearbyPolice(),
         '/homescreen': (ctx) => MyHomePage(),
-        '/loginscreen': (ctx) => LoginScreen(),
+        '/loginscreen': (ctx) => LoginPage(),
         '/firform': (ctx) => VictimBlock(),
         '/demologin': (ctx) => DemoLogin(),
-        // '/progress': (ctx) => FirProgressScreen(),
         '/demofir': (ctx) => FirFormTab(),
-
         '/witness': (ctx) => WitnessBlock(),
         '/victim': (ctx) => VictimBlock(),
         '/afterform': (ctx) => AfterForm(),

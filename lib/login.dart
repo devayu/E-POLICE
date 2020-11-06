@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
+import 'package:flutter_otp/flutter_otp.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String phNumber;
-  String code;
+  int code;
   String smssent;
   String verificationId;
 
@@ -99,6 +100,60 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+//* new login block starts
+
+  TextEditingController phoneNumberController = new TextEditingController();
+  TextEditingController codeController = new TextEditingController();
+
+  /// Sends the code to the specified phone number.
+  Future<void> _sendCodeToPhoneNumber() async {
+    final PhoneVerificationCompleted verificationCompleted =
+        (PhoneAuthCredential user) {
+      setState(() {
+        print(
+            'Inside _sendCodeToPhoneNumber: signInWithPhoneNumber auto succeeded: $user');
+      });
+    };
+
+    final PhoneVerificationFailed verificationFailed =
+        (FirebaseAuthException authException) {
+      setState(() {
+        print(
+            'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
+      });
+    };
+
+    final PhoneCodeSent codeSent =
+        (String verificationId, [int forceResendingToken]) async {
+      this.verificationId = verificationId;
+      print("code sent to " + phoneNumberController.text);
+    };
+
+    final PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
+        (String verificationId) {
+      this.verificationId = verificationId;
+      print("time out");
+    };
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNumberController.text,
+        timeout: const Duration(seconds: 5),
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+  }
+
+  // void _signInWithPhoneNumber(String smsCode) async {
+  //   await FirebaseAuth.instance
+  //       .signInWithPhoneNumber(verificationId: verificationId, smsCode: smsCode)
+  //       .then((UserCredential user) async {
+  //     final UserCredential currentUser = await _auth.currentUser();
+  //     assert(user.uid == currentUser.uid);
+  //     print('signed in with phone number successful: user -> $user');
+  //   });
+  // }
+
   final _loginFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -152,17 +207,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   margin: EdgeInsets.only(top: 30, left: 30, right: 30),
                   color: Colors.grey[300],
                   child: TextFormField(
+                      controller: phoneNumberController,
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold),
                       keyboardType: TextInputType.phone,
                       cursorColor: Theme.of(context).primaryColor,
                       textInputAction: TextInputAction.next,
-                      onChanged: (value) {
-                        setState(() {
-                          this.phNumber = value;
-                        });
-                      },
+                      // onChanged: (value) {
+                      //   setState(() {
+                      //     this.phNumber = value;
+                      //   });
+                      // },
                       maxLength: 10,
                       decoration: InputDecoration(
                         counterText: '',
@@ -172,31 +228,52 @@ class _LoginScreenState extends State<LoginScreen> {
                         contentPadding: EdgeInsets.all(10),
                       )),
                 ),
-                // Card(
-                //   shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(10)),
-                //   margin: EdgeInsets.only(top: 30, left: 30, right: 30),
-                //   color: Colors.grey[300],
-                //   child: TextFormField(
-                //       style: TextStyle(
-                //           fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-                //       keyboardType: TextInputType.number,
-                //       cursorColor: Theme.of(context).primaryColor,
-                //       textInputAction: TextInputAction.next,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           this.code = value;
-                //         });
-                //       },
-                //       maxLength: 6,
-                //       decoration: InputDecoration(
-                //         counterText: '',
-                //         labelText: 'OTP',
-                //         labelStyle: TextStyle(fontWeight: FontWeight.normal),
-                //         border: InputBorder.none,
-                //         contentPadding: EdgeInsets.all(10),
-                //       )),
-                // ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(top: 30, left: 30, right: 10),
+                        color: Colors.grey[300],
+                        child: TextFormField(
+                            controller: codeController,
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold),
+                            keyboardType: TextInputType.number,
+                            cursorColor: Theme.of(context).primaryColor,
+                            textInputAction: TextInputAction.next,
+                            onChanged: (value) {
+                              this.phNumber = value;
+                            },
+                            maxLength: 6,
+                            decoration: InputDecoration(
+                              counterText: '',
+                              labelText: 'OTP',
+                              labelStyle:
+                                  TextStyle(fontWeight: FontWeight.normal),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.all(10),
+                            )),
+                      ),
+                    ),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      margin: EdgeInsets.only(top: 30, right: 30),
+                      color: Colors.grey[300],
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.send,
+                        ),
+                        onPressed: () {
+                          _sendCodeToPhoneNumber();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: 40,
                 ),
@@ -209,9 +286,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: InkWell(
                       splashColor: Colors.black,
                       borderRadius: BorderRadius.circular(20),
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/homescreen');
-                      },
+                      // onTap: () {
+                      //   Navigator.of(context).pushNamed('/homescreen');
+                      // },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -222,7 +299,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ListTile(
                           onTap: () {
                             FocusScope.of(context).unfocus();
-                            verfiyPhone();
+                            //verfiyPhone();
                           },
                           title: Text(
                             'Proceed',
@@ -239,43 +316,41 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                // Align(
-                //   alignment: Alignment.center,
-                //   child: Card(
-                //     elevation: 10,
-                //     shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(20)),
-                //     child: InkWell(
-                //       splashColor: Colors.black,
-                //       borderRadius: BorderRadius.circular(20),
-                //       onTap: () {
-                //         Navigator.of(context).pushNamed('/homescreen');
-                //       },
-                //       child: Container(
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(10),
-                //           color: Theme.of(context).primaryColor,
-                //         ),
-                //         alignment: Alignment.center,
-                //         width: 200,
-                //         child: ListTile(
-                //           onTap: () {
-                //             verfiyPhone();
-                //           },
-                //           title: Text(
-                //             'Testing Skip',
-                //             style: TextStyle(
-                //                 color: Colors.white, fontWeight: FontWeight.bold),
-                //           ),
-                //           trailing: Icon(
-                //             Icons.arrow_forward,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: InkWell(
+                      splashColor: Colors.black,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        alignment: Alignment.center,
+                        width: 200,
+                        child: ListTile(
+                          onTap: () {
+                            FlutterOtp().sendOtp(phNumber);
+                          },
+                          title: Text(
+                            'Send Otp',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: RaisedButton(

@@ -119,7 +119,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 height: 20,
               ),
               LinearPercentIndicator(
-                padding: EdgeInsets.only(left: 25, right: 25),
+                padding: EdgeInsets.only(left: 30, right: 30),
                 animation: true,
                 width: MediaQuery.of(context).size.width,
                 lineHeight: 15.0,
@@ -135,7 +135,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 animationDuration: 1500,
                 percent: progressCheck(snapshot.data.documents[0]['progress']),
                 linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: Colors.redAccent,
+                progressColor: Colors.blueAccent,
               ),
               SizedBox(
                 height: 10,

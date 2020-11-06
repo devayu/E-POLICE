@@ -229,8 +229,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.only(left: 20),
-                                  width:
-                                      MediaQuery.of(context).size.width * .45,
+                                  width: MediaQuery.of(context).size.width * .5,
                                   height: 60,
                                   child: Card(
                                     color: Colors.grey[300],
@@ -258,8 +257,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.only(right: 20),
-                                  width:
-                                      MediaQuery.of(context).size.width * .45,
+                                  width: MediaQuery.of(context).size.width * .5,
                                   height: 60,
                                   child: Card(
                                     color: Colors.grey[300],
@@ -304,8 +302,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.only(left: 20),
-                                  width:
-                                      MediaQuery.of(context).size.width * .45,
+                                  width: MediaQuery.of(context).size.width * .5,
                                   height: 60,
                                   child: Card(
                                     color: Colors.grey[300],
@@ -333,8 +330,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.only(right: 20),
-                                  width:
-                                      MediaQuery.of(context).size.width * .45,
+                                  width: MediaQuery.of(context).size.width * .5,
                                   height: 60,
                                   child: Card(
                                     color: Colors.grey[300],
@@ -403,8 +399,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.only(left: 20),
-                                  width:
-                                      MediaQuery.of(context).size.width * .45,
+                                  width: MediaQuery.of(context).size.width * .5,
                                   height: 60,
                                   child: Card(
                                     color: Colors.grey[300],
@@ -433,8 +428,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.only(right: 20),
-                                  width:
-                                      MediaQuery.of(context).size.width * .45,
+                                  width: MediaQuery.of(context).size.width * .5,
                                   height: 60,
                                   child: Card(
                                     color: Colors.grey[300],
@@ -462,7 +456,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                             ),
                             Container(
                               padding: EdgeInsets.only(left: 20),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],

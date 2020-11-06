@@ -6,6 +6,8 @@ class FirFirestore {
       DateTime.now().hour.toString() +
       DateTime.now().minute.toString();
 
+  String phNum;
+
   Future<void> addData(data) async {
     FirebaseFirestore.instance
         .collection('Form Details')
@@ -34,6 +36,7 @@ class FirFirestore {
     String docTitle = caseTitle;
     CollectionReference users =
         FirebaseFirestore.instance.collection('Form Details');
+    print(phNum);
 
     users.doc(docTitle).collection('Victim').doc().set({
       'First Name': vicFname,

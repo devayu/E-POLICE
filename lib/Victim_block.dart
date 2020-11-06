@@ -65,6 +65,9 @@ class _VictimBlockState extends State<VictimBlock> {
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () {
+                setState(() {
+                  FirFirestore().phNum = vicMainNum.text;
+                });
                 obj.victim(
                   vicFname: vicFname.text,
                   vicLname: vicLname.text,
@@ -215,7 +218,7 @@ class _VictimBlockState extends State<VictimBlock> {
                               padding: EdgeInsets.only(
                                 left: 20,
                               ),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],
@@ -311,7 +314,7 @@ class _VictimBlockState extends State<VictimBlock> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(left: 20),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],
@@ -344,7 +347,7 @@ class _VictimBlockState extends State<VictimBlock> {
                             ),
                             Container(
                               padding: EdgeInsets.only(right: 20),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],
@@ -387,7 +390,7 @@ class _VictimBlockState extends State<VictimBlock> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(left: 20),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],
@@ -412,7 +415,7 @@ class _VictimBlockState extends State<VictimBlock> {
                             ),
                             Container(
                               padding: EdgeInsets.only(right: 20),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],
@@ -479,7 +482,7 @@ class _VictimBlockState extends State<VictimBlock> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(left: 20),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],
@@ -504,7 +507,7 @@ class _VictimBlockState extends State<VictimBlock> {
                             ),
                             Container(
                               padding: EdgeInsets.only(right: 20),
-                              width: MediaQuery.of(context).size.width * .45,
+                              width: MediaQuery.of(context).size.width * .5,
                               height: 60,
                               child: Card(
                                 color: Colors.grey[300],
@@ -530,7 +533,7 @@ class _VictimBlockState extends State<VictimBlock> {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 20),
-                          width: MediaQuery.of(context).size.width * .45,
+                          width: MediaQuery.of(context).size.width * .5,
                           height: 60,
                           child: Card(
                             color: Colors.grey[300],
@@ -571,13 +574,13 @@ class _VictimBlockState extends State<VictimBlock> {
                             children: [
                               Container(
                                 height: 50,
-                                width: MediaQuery.of(context).size.width * .45,
+                                width: MediaQuery.of(context).size.width * .5,
                                 padding: EdgeInsets.only(left: 20),
                                 child: Card(
                                     color: Colors.grey[300],
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.only(left: 10),
@@ -608,14 +611,16 @@ class _VictimBlockState extends State<VictimBlock> {
                                           onPressed: () {
                                             presentDatePicker();
                                           },
-                                          icon: Icon(Icons.calendar_today),
-                                        )
+                                          icon: Icon(
+                                            Icons.calendar_today,
+                                          ),
+                                        ),
                                       ],
                                     )),
                               ),
                               Container(
                                 height: 50,
-                                width: MediaQuery.of(context).size.width * .45,
+                                width: MediaQuery.of(context).size.width * .5,
                                 padding: EdgeInsets.only(right: 20),
                                 child: Card(
                                     color: Colors.grey[300],
