@@ -83,7 +83,7 @@ class MyHomePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               const SizedBox(
-                height: 100,
+                height: 120,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -100,10 +100,12 @@ class MyHomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  homeSectionBuilder('assets/images/complaint.png',
-                      'Lodge Complaint', context, '/complaint'),
                   homeSectionBuilder('assets/images/station.png',
                       'Nearby Police Station', context, '/station'),
+                  // homeSectionBuilder('assets/images/complaint.png',
+                  //     'Lodge Complaint', context, '/complaint'),
+                  homeSectionBuilder('assets/images/rules.png',
+                      'Important Information', context, '/information'),
                 ],
               ),
               const SizedBox(
@@ -111,10 +113,7 @@ class MyHomePage extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  homeSectionBuilder('assets/images/rules.png',
-                      'Important Information', context, '/information'),
-                ],
+                children: <Widget>[],
               ),
             ],
           ),

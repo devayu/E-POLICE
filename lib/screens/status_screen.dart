@@ -57,9 +57,6 @@ class _StatusScreenState extends State<StatusScreen> {
   bool progress;
   @override
   Widget build(BuildContext context) {
-    //MediaQueryData queryData;
-    //queryData = MediaQuery.of(context);
-
     return MaterialApp(
       home: GestureDetector(
         onTap: () {
@@ -101,7 +98,7 @@ class _StatusScreenState extends State<StatusScreen> {
                             padding: EdgeInsets.only(left: 20),
                             alignment: Alignment.topLeft,
                             child: Text(
-                              'Case ID: ' + firNumberController.text,
+                              'FIR Number: ' + firNumberController.text,
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 20,
@@ -142,7 +139,7 @@ class _StatusScreenState extends State<StatusScreen> {
                               errorBorder: OutlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Colors.red, width: 2)),
-                              labelText: ('Enter CaseID'),
+                              labelText: ('Enter FIR Number'),
                               labelStyle: TextStyle(
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.normal),

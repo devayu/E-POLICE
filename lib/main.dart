@@ -1,6 +1,6 @@
 import 'package:EPOLICE/LoginPage.dart';
 import 'package:EPOLICE/after_form_screen.dart';
-import 'package:EPOLICE/demo_Login.dart';
+
 import 'package:EPOLICE/Victim_block.dart';
 import 'package:EPOLICE/nearby_police_screen.dart';
 
@@ -17,9 +17,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import './login.dart';
 
-import './screens/demoFIr.dart';
+
 import 'Victim_block.dart';
 
 void main() async {
@@ -57,8 +56,7 @@ class _MyAppState extends State<MyApp> {
         '/homescreen': (ctx) => MyHomePage(),
         '/loginscreen': (ctx) => LoginPage(),
         '/firform': (ctx) => VictimBlock(),
-        '/demologin': (ctx) => DemoLogin(),
-        '/demofir': (ctx) => FirFormTab(),
+        
         '/witness': (ctx) => WitnessBlock(),
         '/victim': (ctx) => VictimBlock(),
         '/afterform': (ctx) => AfterForm(),

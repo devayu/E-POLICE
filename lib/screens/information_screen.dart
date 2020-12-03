@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class InformationScreen extends StatelessWidget {
@@ -68,7 +69,7 @@ class InformationScreen extends StatelessWidget {
               labelStyle: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.w600,
-                  fontSize: 18),
+                  fontSize: 16),
               unselectedLabelColor: Color.fromRGBO(25, 74, 109, 120),
               unselectedLabelStyle: TextStyle(
                   fontFamily: 'Montserrat', fontWeight: FontWeight.w600),

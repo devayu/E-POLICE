@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_place/google_place.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_google_places_api/flutter_google_places_api.dart';
 
 class NearbyPolice extends StatefulWidget {
   @override
@@ -20,27 +22,62 @@ class _NearbyPoliceState extends State<NearbyPolice> {
 
   LatLng curLoc;
 
+  LatLng latlng = LatLng(
+    -33.8670522,
+    151.1957362,
+  );
+  Iterable markers = [];
+
+  getData() async {
+    try {
+      final response = await http
+          .get(
+              'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${curLoc.latitude},${curLoc.longitude}&radius=4000&type=police&key=AIzaSyDMvd7rJjTABUTc6WYMeT9_kj5MkeB9xRI')
+          .catchError((e) {
+        print(e);
+      });
+
+      final int statusCode = response.statusCode;
+
+      if (statusCode == 201 || statusCode == 200) {
+        Map responseBody = json.decode(response.body);
+        List results = responseBody["results"];
+
+        Iterable _markers = Iterable.generate(10, (index) {
+          Map result = results[index];
+          Map location = result["geometry"]["location"];
+          LatLng latLngMarker = LatLng(location["lat"], location["lng"]);
+
+          return Marker(
+            markerId: MarkerId("marker$index"),
+            position: latLngMarker,
+            infoWindow: InfoWindow(
+                title: result["name"].toString(),
+                snippet: result["vicinity"].toString()),
+          );
+        });
+
+        setState(() {
+          markers = _markers;
+        });
+      } else {
+        throw Exception('Error');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
-
-    NearbySearchResponse response = await NearbySearchRequest(
-            key: 'AIzaSyDJ3E3KpjWSETVh18aJWN-R0WLH5DaG1bE',
-            location: loc,
-            radius: 10)
-        .call()
-        .catchError((e) {
-      print(e);
-    });
-
-    print(response.toString());
   }
 
   Location loc;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
     void checkPerm() async {
       bool isPermissionEnabled = await Geolocator.isLocationServiceEnabled();
     }
@@ -51,9 +88,11 @@ class _NearbyPoliceState extends State<NearbyPolice> {
       setState(() {
         currentLoc = value;
         mapToggle = true;
+        curLoc = LatLng(currentLoc.latitude, currentLoc.longitude);
         loc = Location(lat: currentLoc.latitude, lng: currentLoc.longitude);
       });
-    });
+    }).then((value) => getData());
+    //getData();
   }
 
   @override
@@ -76,6 +115,7 @@ class _NearbyPoliceState extends State<NearbyPolice> {
           Container(
               child: mapToggle
                   ? GoogleMap(
+                      markers: Set.from(markers),
                       buildingsEnabled: true,
                       zoomGesturesEnabled: true,
                       zoomControlsEnabled: true,
@@ -87,7 +127,7 @@ class _NearbyPoliceState extends State<NearbyPolice> {
                       initialCameraPosition: CameraPosition(
                         target:
                             LatLng(currentLoc.latitude, currentLoc.longitude),
-                        zoom: 15,
+                        zoom: 13,
                       ),
                     )
                   : Center(
