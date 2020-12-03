@@ -26,10 +26,6 @@
     - FIR form - authenticate with face id.
 	- Check previous FIR status.
 
-* E-Complaints
-    - Complaint form
-    - Check previous complaint status.
-
 * Nearby Police station
     - show nearby police station according to user location.
 
