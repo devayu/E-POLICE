@@ -195,22 +195,22 @@ class _LoginPageState extends State<LoginPage> {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/homescreen');
-                    },
-                    child: Text(
-                      "Skip",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    elevation: 7.0,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: RaisedButton(
+                //     shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(30)),
+                //     onPressed: () {
+                //       Navigator.of(context).pushNamed('/homescreen');
+                //     },
+                //     child: Text(
+                //       "Skip",
+                //       style: TextStyle(color: Colors.white),
+                //     ),
+                //     elevation: 7.0,
+                //     color: Theme.of(context).primaryColor,
+                //   ),
+                // ),
                 SizedBox(
                   height: 20,
                 ),

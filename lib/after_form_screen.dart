@@ -1,7 +1,105 @@
+import 'dart:io';
+import 'package:printing/printing.dart';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
 import './fir_form_firestore.dart';
+import 'package:pdf/pdf.dart';
 
 class AfterForm extends StatelessWidget {
+  final pdf = pw.Document();
+  writePdf(String vName, String wName, String wPhNum, String vPhNum) {
+    pdf.addPage(pw.MultiPage(
+      pageFormat: PdfPageFormat.a4,
+      margin: pw.EdgeInsets.all(30),
+      build: (pw.Context context) {
+        return <pw.Widget>[
+          pw.Header(
+            level: 0,
+            child: pw.Text(
+              "Date of FIR: " + FirFirestore().doF,
+              style: pw.TextStyle(
+                fontSize: 20,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+          ),
+          pw.Text(
+            'Thank you for filling out the form.',
+            style: pw.TextStyle(
+              color: PdfColor.fromHex("194A6D"),
+              fontSize: 40,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 30),
+          pw.Text(
+            'Your E-FIR has been generated with FIR Number: ' +
+                FirFirestore().time,
+            style: pw.TextStyle(
+              fontSize: 35,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 20),
+          pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
+            pw.Text(
+              "Complainant's Name: " + wName,
+              style: pw.TextStyle(
+                fontSize: 30,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+            pw.Text(
+              "Phone Number: " + wPhNum,
+              style: pw.TextStyle(
+                fontSize: 30,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+          ]),
+          pw.SizedBox(height: 20),
+          pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
+            pw.Text(
+              "Victim's Name: " + vName,
+              style: pw.TextStyle(
+                fontSize: 30,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+            pw.Text(
+              "Phone Number: " + vPhNum,
+              style: pw.TextStyle(
+                fontSize: 30,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+          ]),
+          pw.SizedBox(height: 100),
+          pw.Text(
+            "Please save this file or FIR Number for checking the status of your FIR.",
+            style: pw.TextStyle(
+              color: PdfColors.red500,
+              fontSize: 25,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+        ];
+      },
+    ));
+    Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+  }
+
+  Future savePdf() async {
+    Directory docDirectory = await getApplicationDocumentsDirectory();
+    String documentPath = docDirectory.path;
+
+    File file = File('$documentPath/EFIR.pdf');
+
+    file.writeAsBytesSync(pdf.save());
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,6 +149,24 @@ class AfterForm extends StatelessWidget {
                   SizedBox(
                     height: 40,
                   ),
+                  RaisedButton(
+                    child: Text('PDF'),
+                    onPressed: () async {
+                      //writePdf();
+                      // await savePdf();
+                      // Directory docDirectory =
+                      //     await getApplicationDocumentsDirectory();
+                      // String documentPath = docDirectory.path;
+                      // String path = '$documentPath/EFIR.pdf';
+                    },
+                  ),
+                  RaisedButton(
+                      child: Text('Save'),
+                      onPressed: () async {
+                        Printing.layoutPdf(
+                            onLayout: (PdfPageFormat format) async =>
+                                pdf.save());
+                      }),
                   Container(
                     width: 150,
                     height: 50,

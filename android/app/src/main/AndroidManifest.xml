@@ -51,6 +51,6 @@ android:name="android.permission.ACCESS_COARSE_LOCATION" />
             android:value="2" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDJ3E3KpjWSETVh18aJWN-R0WLH5DaG1bE"/>
+            android:value="AIzaSyDMvd7rJjTABUTc6WYMeT9_kj5MkeB9xRI"/>
     </application>
 </manifest>
