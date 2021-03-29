@@ -1,6 +1,6 @@
 ![](bg.png) 
 	
-# A Smart E-Policing App based on FLUTTER
+# A Smart E-Policing App built using Flutter
 
 
 ![](assets/images/epolice_ss.png)
