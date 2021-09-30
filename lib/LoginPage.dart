@@ -11,6 +11,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String phoneNumber, verificationId;
   String otp, authStatus = "";
+  Color mainColor = Color(0xff194A6D);
+  Color secondaryColor = Color(0xffF2F5F6);
 
   Future<void> verifyPhoneNumber(BuildContext context) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -55,10 +57,11 @@ class _LoginPageState extends State<LoginPage> {
             content: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).accentColor),
-                child: TextFormField(
+                // decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(10),
+                //     color: secondaryColor,
+              child: TextFormField(
+                autofocus: true,
                   decoration: InputDecoration(border: InputBorder.none),
                   onChanged: (value) {
                     otp = value;
@@ -66,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            contentPadding: EdgeInsets.all(10.0),
+            // : EdgeInsets.all(10.0),
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
@@ -104,15 +107,17 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Color col= Color(0xff0677BD);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Container(
         decoration: BoxDecoration(
+          color: Colors.white,
           image: DecorationImage(
             colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(1), BlendMode.dstATop),
+                Colors.white.withOpacity(0.15), BlendMode.dstATop),
             fit: BoxFit.cover,
             image: AssetImage('assets/images/police_logo.png'),
           ),
@@ -120,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Scaffold(
           backgroundColor: Colors.white54,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             elevation: 0,
           ),
           body: SingleChildScrollView(
@@ -138,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Hexcolor('#0677BD')),
+                        color: col),
                   ),
                 ),
                 Container(
@@ -155,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
+                      color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
@@ -197,9 +202,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 // Align(
                 //   alignment: Alignment.center,
-                //   child: RaisedButton(
-                //     shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(30)),
+                //   child: ElevatedButton(
+                //
                 //     onPressed: () {
                 //       Navigator.of(context).pushNamed('/homescreen');
                 //     },
@@ -207,8 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                 //       "Skip",
                 //       style: TextStyle(color: Colors.white),
                 //     ),
-                //     elevation: 7.0,
-                //     color: Theme.of(context).primaryColor,
+                //
                 //   ),
                 // ),
                 SizedBox(
@@ -225,7 +228,9 @@ class _LoginPageState extends State<LoginPage> {
                             : Colors.green),
                   ),
                 ),
+
               ],
+
             ),
           ),
         ),

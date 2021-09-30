@@ -57,7 +57,14 @@ class _StatusScreenState extends State<StatusScreen> {
   bool progress;
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)),
+      elevation: 5,
+      primary: Theme.of(context).primaryColor,
+    );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -66,11 +73,12 @@ class _StatusScreenState extends State<StatusScreen> {
           resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
+            elevation: 0,
+            backgroundColor: Colors.white,
             title: Text(
               'CHECK STATUS',
               style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 25,
                   color: Theme.of(context).primaryColor,
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold),
@@ -81,9 +89,9 @@ class _StatusScreenState extends State<StatusScreen> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(.5), BlendMode.dstATop),
+                    Colors.white.withOpacity(0.1), BlendMode.dstATop),
                 fit: BoxFit.cover,
-                image: const AssetImage('assets/images/police_logo.png'),
+                image: AssetImage('assets/images/police_logo.png'),
               ),
             ),
             child: Form(
@@ -120,7 +128,7 @@ class _StatusScreenState extends State<StatusScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(top: 30, left: 30, right: 30),
-                          color: Colors.grey[300],
+                          color: Colors.grey[200],
                           child: TextFormField(
                             controller: firNumberController,
                             style: TextStyle(
@@ -154,11 +162,9 @@ class _StatusScreenState extends State<StatusScreen> {
                         ButtonTheme(
                           height: 40,
                           minWidth: 150,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            elevation: 5,
-                            color: Theme.of(context).primaryColor,
+                          child: ElevatedButton(
+                            style:raisedButtonStyle,
+
                             child: const Text(
                               'Check',
                               style: TextStyle(

@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+Color mainColor = Color(0xff194A6D);
+Color secondaryColor = Color(0xffF2F5F6);
 Widget homeSectionBuilder(
     String imageLoc, String text, BuildContext context, String routeName) {
+
   return Card(
     elevation: 5,
-    color: Theme.of(context).accentColor,
+    color: secondaryColor,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     child: InkWell(
       borderRadius: BorderRadius.circular(10),
       onTap: () {
         Navigator.pushNamed(context, routeName);
       },
-      splashColor: Theme.of(context).primaryColor,
+      splashColor: mainColor,
       child: Container(
         width: 110,
         height: 110,
@@ -53,14 +56,17 @@ Future<void> _logout() async {
 }
 
 class MyHomePage extends StatelessWidget {
+  Color col = Color(0xfF2F5F6);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          backgroundColor: Hexcolor('#F2F5F6'),
+          backgroundColor: Colors.white,
+          // systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.white),
+          elevation: 0,
           title: Text(
             'E-POLICE',
             style: TextStyle(
@@ -75,9 +81,9 @@ class MyHomePage extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.5), BlendMode.dstATop),
+                  Colors.white.withOpacity(0.1), BlendMode.dstATop),
               fit: BoxFit.cover,
-              image: const AssetImage('assets/images/police_logo.png'),
+              image: AssetImage('assets/images/police_logo.png'),
             ),
           ),
           child: Column(
@@ -119,7 +125,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: secondaryColor,
           onPressed: () {
             _logout();
             Navigator.of(context).pop();

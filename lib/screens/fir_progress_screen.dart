@@ -22,11 +22,19 @@ class _FirProgressScreenState extends State<FirProgressScreen> {
         decoration: BoxDecoration(
           image: DecorationImage(
             colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(1), BlendMode.dstATop),
+                Colors.white.withOpacity(0.08), BlendMode.dstATop),
             fit: BoxFit.cover,
-            image: const AssetImage('assets/images/police_logo.png'),
+            image: AssetImage('assets/images/police_logo.png'),
           ),
         ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     colorFilter: ColorFilter.mode(
+        //         Colors.white.withOpacity(1), BlendMode.dstATop),
+        //     fit: BoxFit.cover,
+        //     image: const AssetImage('assets/images/police_logo.png'),
+        //   ),
+        // ),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white54,

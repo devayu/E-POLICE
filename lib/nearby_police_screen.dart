@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_place/google_place.dart';
@@ -98,16 +100,18 @@ class _NearbyPoliceState extends State<NearbyPolice> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Colors.white,
+          elevation: 0,
           title: Text(
-            'E-POLICE',
+            'POLICE STATIONS',
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Montserrat',
-                fontSize: 35),
+                fontSize: 25),
           ),
           centerTitle: true,
         ),

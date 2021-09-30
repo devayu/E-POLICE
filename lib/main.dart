@@ -16,9 +16,6 @@ import './splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-
-
 import 'Victim_block.dart';
 
 void main() async {
@@ -37,14 +34,18 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
+    Color mainColor = Color(0xff194A6D);
+    Color secondaryColor = Color(0xffF2F5F6);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'E-POLICE',
       theme: ThemeData(
           textTheme: TextTheme(headline1: TextStyle(fontFamily: 'Montserrat')),
-          primaryColor: Hexcolor('#194A6D'),
+          primaryColor: mainColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          accentColor: Hexcolor('#F2F5F6'), //
+          colorScheme: theme.colorScheme.copyWith(secondary:secondaryColor), //
           backgroundColor: Colors.white,
           fontFamily: 'Montserrat'),
       home: SplashScreen(),

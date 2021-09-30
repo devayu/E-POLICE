@@ -189,29 +189,35 @@ class _VictimBlockState extends State<VictimBlock> {
 
   @override
   Widget build(BuildContext context) {
+
+    Color mainColor = Color(0xff194A6D);
+    Color secondaryColor = Color(0xffF2F5F6);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Container(
+
         decoration: BoxDecoration(
+          color: Colors.white,
           image: DecorationImage(
             colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(1), BlendMode.dstATop),
+                Colors.white.withOpacity(0.15), BlendMode.dstATop),
             fit: BoxFit.cover,
-            image: const AssetImage('assets/images/police_logo.png'),
+            image: AssetImage('assets/images/police_logo.png'),
           ),
         ),
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Hexcolor('#F2F5F6'),
+            backgroundColor: Colors.white,
+            elevation:0,
             title: Text(
               'FILE FIR',
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
-                  fontSize: 35),
+                  fontSize: 25),
             ),
             centerTitle: true,
           ),
@@ -1337,7 +1343,7 @@ class _VictimBlockState extends State<VictimBlock> {
                 ),
                 CheckboxListTile(
                   checkColor: Colors.red,
-
+                  activeColor: Colors.transparent,
                   subtitle: Text(
                     '*fields are required',
                     style: TextStyle(

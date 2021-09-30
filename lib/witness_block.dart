@@ -50,7 +50,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
-            new FlatButton(
+            new TextButton(
               child: new Text(
                 "NO",
                 style:
@@ -606,7 +606,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text(
                       'Submit',
                       style: TextStyle(
@@ -642,7 +642,7 @@ class _WitnessBlockState extends State<WitnessBlock> {
                         _showDialog(FirFirestore().time);
                       }
                     },
-                    color: Theme.of(context).primaryColor,
+                    // : Theme.of(context).primaryColor,
                   ),
                 )
               ],

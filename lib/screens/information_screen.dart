@@ -36,7 +36,7 @@ class InformationScreen extends StatelessWidget {
         number.toString(),
         style: const TextStyle(
             fontFamily: 'Montserrat',
-            color: Colors.red,
+            color: Colors.redAccent,
             fontWeight: FontWeight.bold),
       ),
     );
@@ -45,6 +45,7 @@ class InformationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -59,7 +60,7 @@ class InformationScreen extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                    fontSize: 25),
               ),
             ),
             centerTitle: true,
@@ -95,14 +96,14 @@ class InformationScreen extends StatelessWidget {
             child: TabBarView(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      colorFilter: ColorFilter.mode(
-                          Colors.white.withOpacity(.5), BlendMode.dstATop),
-                      fit: BoxFit.cover,
-                      image: const AssetImage('assets/images/police_logo.png'),
-                    ),
-                  ),
+                  // decoration: BoxDecoration(
+                  //   image: DecorationImage(
+                  //     colorFilter: ColorFilter.mode(
+                  //         Colors.white.withOpacity(.5), BlendMode.dstATop),
+                  //     fit: BoxFit.cover,
+                  //     image: const AssetImage('assets/images/police_logo.png'),
+                  //   ),
+                  // ),
                   child: ListView(
                     padding: EdgeInsets.all(10),
                     children: <Widget>[
@@ -113,7 +114,7 @@ class InformationScreen extends StatelessWidget {
                         margin: EdgeInsets.all(3),
                         padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                            color: Colors.grey[350],
+                            color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(8)),
                         child: Text(
                           '18 Laws and rules every indian must know !',
@@ -236,14 +237,15 @@ class InformationScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      colorFilter: ColorFilter.mode(
-                          Colors.white.withOpacity(.5), BlendMode.dstATop),
-                      fit: BoxFit.cover,
-                      image: const AssetImage('assets/images/police_logo.png'),
-                    ),
-                  ),
+
+                  // decoration: BoxDecoration(
+                  //   image: DecorationImage(
+                  //     colorFilter: ColorFilter.mode(
+                  //         Colors.white.withOpacity(.5), BlendMode.dstATop),
+                  //     fit: BoxFit.cover,
+                  //     image: const AssetImage('assets/images/police_logo.png'),
+                  //   ),
+                  // ),
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
